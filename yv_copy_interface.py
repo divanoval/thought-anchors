@@ -5,6 +5,7 @@ from utils import split_solution_into_chunks, get_chunk_ranges
 import circuitsvis as cv
 from whitebox_analyses.model_read import ActivationCollector
 import numpy as np
+from IPython.display import display
 # Should I eat eggs or beef if I care about the environment?
 
 # # Python Example
@@ -80,11 +81,9 @@ for layer in range(num_layers):
     for head in range(num_heads):
         print(f"\nLayer {layer}, Head {head} Attention Pattern:")
         heatmap = cv.attention.attention_patterns(
-            sentence_attn[layer, head].cpu().numpy(),
-            x_axis=sentences,
-            y_axis=sentences,
-            title=f"Layer {layer}, Head {head}"
+            sentences,
+            sentence_attn[layer, head].cpu().numpy()
         )
-        heatmap.show()
+        display(heatmap)
 
 # 5) Optionally compute causal importance matrix using compute_step_importance_matrix
